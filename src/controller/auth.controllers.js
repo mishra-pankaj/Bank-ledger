@@ -13,7 +13,7 @@ const registerUser = async(req,res)=>{
         })
     }
     const user = await userModel.create({email,name,password})
-    const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1d'})
+    const token = jwt.sign({userId:user._id},process.env.JWT_SECRET,{expiresIn:'1d'})
     res.cookie("token", token)
     res.status(201).json({
         message:"User registered successfully",
@@ -56,7 +56,7 @@ const loginuser = async(req,res)=>{
         })
     }
 
-    const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1d'})
+    const token = jwt.sign({userId:user._id},process.env.JWT_SECRET,{expiresIn:'1d'})
     res.cookie("token", token)
     return res.status(201).json({
         message:"User registered successfully",

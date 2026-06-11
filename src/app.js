@@ -1,14 +1,27 @@
 require("dotenv").config();
-const authRoutes = require('./routes/auth.routes');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+
+const app = express();
 
 const connectDb = require('./config/db');
 console.log(process.env.MongoDB_URI);
 
-const app = express();
+/**
+ * -Routes required
+ */
+const authRoutes = require('./routes/auth.routes');
+const accountRoutes = require('./routes/account.routes');
+
+
 app.use(express.json());
 app.use(cookieParser());
+
+/**
+ * -Use Routes
+ */
 app.use('/api/auth', authRoutes);
+app.use('/api/accounts', accountRoutes);
+
 connectDb()
 module.exports = app;
